@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yashneel | Portfolio</title>
+  <style>
+    :root {
+      --bg:#0a0a0f; --surface:#111118; --card:#16161f; --border:#2a2a3a;
+      --accent:#00e5ff; --accent2:#7c3aed; --accent3:#f59e0b;
+      --text:#e2e8f0; --muted:#64748b; --green:#10b981;
+      --mono:'Courier New',monospace;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden;font-size:14px;}
+
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.5rem;background:rgba(10,10,15,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:var(--mono);color:var(--accent);letter-spacing:2px;font-size:.85rem;cursor:pointer;}
+    .nav-links{display:flex;gap:1.5rem;list-style:none;}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;font-family:var(--mono);transition:color .2s;}
+    .nav-links a:hover{color:var(--accent);}
+
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;min-height:420px;position:relative;}
+    .hero-card{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:2.5rem 2rem;border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:border-color .3s;}
+    .hero-card:hover{border-color:var(--accent);}
+    .hero-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .4s;}
+    .c1::before{background:radial-gradient(circle at 30% 70%,rgba(0,229,255,.1) 0%,transparent 60%);}
+    .c2::before{background:radial-gradient(circle at 70% 30%,rgba(124,58,237,.1) 0%,transparent 60%);}
+    .hero-card:hover::before{opacity:1;}
+    .grid-deco{position:absolute;top:1rem;right:1rem;font-family:var(--mono);font-size:.55rem;color:var(--border);letter-spacing:1px;}
+    .hero-tag{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem;}
+    .hero-title{font-size:clamp(1.8rem,4vw,3rem);font-weight:700;line-height:1.1;margin-bottom:.8rem;}
+    .hero-sub{font-family:var(--mono);font-size:.75rem;color:var(--muted);line-height:1.9;margin-bottom:1.5rem;}
+    .hero-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1.1rem;border:1px solid;font-family:var(--mono);font-size:.72rem;letter-spacing:1px;text-decoration:none;transition:all .2s;width:fit-content;cursor:pointer;background:transparent;}
+    .c1 .hero-title{color:var(--accent);} .c1 .hero-btn{border-color:var(--accent);color:var(--accent);} .c1 .hero-btn:hover{background:var(--accent);color:var(--bg);}
+    .c2 .hero-title{color:var(--accent2);} .c2 .hero-btn{border-color:var(--accent2);color:var(--accent2);} .c2 .hero-btn:hover{background:var(--accent2);color:#fff;}
+
+    .name-banner{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:1.2rem 0;}
+    .marquee{display:flex;gap:3rem;animation:marquee 18s linear infinite;white-space:nowrap;}
+    .marquee-item{font-family:var(--mono);font-size:2rem;font-weight:700;letter-spacing:6px;color:transparent;-webkit-text-stroke:1px var(--border);}
+    .marquee-item.ac{-webkit-text-stroke:1px var(--accent);}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    .section{padding:3rem 1.5rem;max-width:1000px;margin:0 auto;}
+    .sec-label{font-family:var(--mono);font-size:.65rem;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:.4rem;}
+    .sec-title{font-size:1.6rem;font-weight:700;margin-bottom:1.8rem;}
+    .divider{border:none;border-top:1px solid var(--border);}
+
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;}
+    .about-text p{color:var(--muted);line-height:1.9;margin-bottom:.9rem;font-size:.875rem;}
+    .about-text strong{color:var(--text);}
+    .about-links{display:flex;gap:.75rem;margin-top:1.2rem;flex-wrap:wrap;}
+    .pill{padding:.4rem 1rem;border:1px solid var(--border);color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:.7rem;letter-spacing:1px;transition:all .2s;}
+    .pill:hover{border-color:var(--accent);color:var(--accent);}
+    .skills-panel{display:flex;flex-direction:column;gap:1rem;}
+    .skill-grp{border:1px solid var(--border);padding:1rem 1.2rem;}
+    .sg-title{font-family:var(--mono);font-size:.62rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:.6rem;}
+    .tags{display:flex;flex-wrap:wrap;gap:.35rem;}
+    .tag{padding:.2rem .6rem;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15);color:var(--text);font-family:var(--mono);font-size:.68rem;}
+
+    .exp-list{display:flex;flex-direction:column;}
+    .exp-item{border:1px solid var(--border);border-bottom:none;padding:1.3rem 1.6rem;transition:background .2s;}
+    .exp-item:last-child{border-bottom:1px solid var(--border);}
+    .exp-item:hover{background:var(--card);}
+    .exp-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.35rem;}
+    .exp-role{font-weight:600;font-size:.92rem;}
+    .exp-date{font-family:var(--mono);font-size:.65rem;color:var(--muted);margin-left:1rem;white-space:nowrap;}
+    .exp-co{font-family:var(--mono);font-size:.72rem;color:var(--accent);margin-bottom:.6rem;}
+    .exp-ul{list-style:none;}
+    .exp-ul li{font-size:.8rem;color:var(--muted);line-height:1.7;padding-left:1rem;position:relative;}
+    .exp-ul li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:.65rem;top:.2rem;}
+
+    /* PROJECTS with image placeholder */
+    .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.2rem;}
+    .proj-card{border:1px solid var(--border);background:var(--card);transition:border-color .2s,transform .2s;position:relative;overflow:hidden;}
+    .proj-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+    .proj-img-slot{
+      width:100%;height:180px;
+      background:var(--surface);
+      border-bottom:1px solid var(--border);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:.5rem;
+      position:relative;
+      overflow:hidden;
+    }
+    .proj-img-slot .slot-icon{font-size:2rem;opacity:.2;}
+    .proj-img-slot .slot-text{font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+    .proj-img-slot .slot-dashes{position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(255,255,255,.02) 8px,rgba(255,255,255,.02) 9px);}
+    .proj-img-slot .add-btn{
+      position:absolute;bottom:.75rem;right:.75rem;
+      padding:.3rem .7rem;
+      border:1px dashed var(--border);
+      color:var(--muted);font-family:var(--mono);font-size:.6rem;
+      letter-spacing:1px;cursor:pointer;transition:all .2s;
+      background:transparent;
+    }
+    .proj-img-slot .add-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .proj-body{padding:1.4rem;}
+    .proj-tag{font-family:var(--mono);font-size:.6rem;color:var(--accent2);letter-spacing:2px;text-transform:uppercase;margin-bottom:.4rem;}
+    .proj-name{font-size:.95rem;font-weight:600;margin-bottom:.5rem;}
+    .proj-desc{font-size:.78rem;color:var(--muted);line-height:1.7;}
+    .feat-badge{position:absolute;top:.8rem;right:.8rem;background:var(--accent3);color:#0a0a0f;font-family:var(--mono);font-size:.55rem;padding:.15rem .4rem;letter-spacing:1px;}
+
+    .edu-list{display:flex;flex-direction:column;gap:.9rem;}
+    .edu-item{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;padding:1rem 1.3rem;border:1px solid var(--border);background:var(--card);}
+    .edu-dot{width:9px;height:9px;border-radius:50%;margin-top:.3rem;flex-shrink:0;}
+    .edu-inst{font-weight:600;font-size:.88rem;margin-bottom:.2rem;}
+    .edu-deg{font-family:var(--mono);font-size:.68rem;color:var(--accent);margin-bottom:.2rem;}
+    .edu-yr{font-size:.72rem;color:var(--muted);}
+
+    .awards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.9rem;}
+    .award-card{border:1px solid var(--border);padding:1rem;background:var(--card);text-align:center;transition:border-color .2s;}
+    .award-card:hover{border-color:var(--accent3);}
+    .aw-icon{font-size:1.3rem;margin-bottom:.4rem;}
+    .aw-name{font-size:.75rem;color:var(--text);line-height:1.4;}
+
+    /* GALLERY */
+    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+    .gallery-slot{
+      border:1px dashed var(--border);
+      background:var(--card);
+      aspect-ratio:4/3;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:.5rem;
+      cursor:pointer;
+      transition:border-color .2s,background .2s;
+      position:relative;
+      overflow:hidden;
+    }
+    .gallery-slot:hover{border-color:var(--accent);background:var(--surface);}
+    .gallery-slot .g-icon{font-size:1.8rem;opacity:.18;}
+    .gallery-slot .g-label{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+    .gallery-slot .g-type{
+      position:absolute;top:.6rem;left:.6rem;
+      padding:.15rem .45rem;
+      font-family:var(--mono);font-size:.55rem;letter-spacing:1px;
+      text-transform:uppercase;
+    }
+    .g-photo .g-type{border:1px solid rgba(0,229,255,.3);color:var(--accent);}
+    .g-video .g-type{border:1px solid rgba(124,58,237,.3);color:var(--accent2);}
+    .g-video .g-icon{color:var(--accent2);}
+
+    /* video slot play ring */
+    .play-ring{
+      width:40px;height:40px;border-radius:50%;
+      border:1.5px solid rgba(124,58,237,.4);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--accent2);font-size:1rem;
+    }
+    .gallery-slot:hover .play-ring{border-color:var(--accent2);background:rgba(124,58,237,.1);}
+
+    .gallery-note{
+      margin-top:1.2rem;
+      padding:.9rem 1.2rem;
+      border:1px dashed var(--border);
+      font-family:var(--mono);font-size:.68rem;color:var(--muted);
+      display:flex;align-items:center;gap:.8rem;
+      line-height:1.6;
+    }
+    .gallery-note span{color:var(--accent);font-size:1rem;}
+
+    footer{border-top:1px solid var(--border);text-align:center;padding:1.5rem;font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:2px;}
+
+    @media(max-width:640px){.hero-grid{grid-template-columns:1fr;}.about-grid{grid-template-columns:1fr;}.gallery-grid{grid-template-columns:1fr 1fr;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">YB.init()</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#exp">Experience</a></li>
+    <li><a href="#proj">Projects</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#edu">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero-grid">
+  <div class="hero-card c1">
+    <div class="grid-deco">SYS // MECH_ENG</div>
+    <div class="hero-tag">Engineering Undergraduate</div>
+    <div class="hero-title">Mechanical Engineering</div>
+    <p class="hero-sub">Focused on mechanical design, automotive engineering, and manufacturing
+      <br>systems, I develop engineering solutions that bridge theoretical understanding
+      <br>with real-world application. Through hands-on experience in vehicle
+      <br>development, structural thinking, and engineering problem-solving, I aim to
+    <br>design efficient mechanical systems built for performance, reliability, and innovation.
+  </p>
+    <a href="#exp" class="hero-btn">Enter Domain →</a>
+  </div>
+  <div class="hero-card c2">
+    <div class="grid-deco">SYS // AI</div>
+    <div class="hero-tag">Powered By AI</div>
+    <div class="hero-title">Artifiliacal Intelligence</div>
+    <p class="hero-sub">Trained in Artificial Intelligence through IIT Ropar, I explore the integration of
+      <br>intelligent systems with engineering applications. My work focuses on applying AI concepts such as data-driven decision making, automation, and intelligent analysis to modern engineering challenges, combining computational intelligence with mechanical innovation.</p>
+    <a href="#proj" class="hero-btn">View Projects →</a>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="name-banner">
+  <div class="marquee">
+    <span class="marquee-item">YASHNEEL</span><span class="marquee-item ac">BORANA</span>
+    <span class="marquee-item">YASHNEEL</span><span class="marquee-item ac">BORANA</span>
+    <span class="marquee-item">YASHNEEL</span><span class="marquee-item ac">BORANA</span>
+    <span class="marquee-item">YASHNEEL</span><span class="marquee-item ac">BORANA</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="about">
+  <div class="sec-label">System.About()</div>
+  <div class="sec-title">System.About()</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a <strong>Mechanical Engineering student at SGSITS, Indore</strong> and with a strong interest in automotive engineering and hands-on mechanical design. I have been a part of the <strong>Formula Student team, GS Motorsports</strong>, where I gained exposure to vehicle development, fabrication practices, and collaborative engineering work.
+My technical interests include structural design, mechanical analysis, and creating practical engineering solutions. I enjoy working with tools like ANSYS for basic structural analysis, AutoCAD for technical drawings, and developing engineering-based projects that connect theory with real-world applications.
+Alongside my core engineering studies, I am pursuing an Artificial Intelligence certification from <strong>IIT Ropar</strong>, exploring how intelligent systems can enhance modern engineering and automotive technologies.</p>
+      <div class="about-links">
+        <a href="mailto:Boranayashneel23@gmail.com" class="pill">Email</a>
+        <a href="tel:+917489212158" class="pill">+91 7489212158</a>
+        <a href="https://www.linkedin.com/in/yashneel-borana-720031333/?isSelfProfile=false" class="pill">LinkedIn</a>
+        <a href="#" class="pill">Resume</a>
+      </div>
+    </div>
+    <div class="skills-panel">
+      <div class="skill-grp"><div class="sg-title">CAD & Simulation</div><div class="tags"><span class="tag">SolidWorks</span><span class="tag">AutoCAD</span><span class="tag">ANSYS</span><span class="tag">Fusion 360</span><span class="tag">PTC Creo</span><span class="tag">Hyperworks</span><span class="tag">MSC Adams</span><span class="tag">OptimumG</span></div></div>
+      <div class="skill-grp"><div class="sg-title">Programming</div><div class="tags"><span class="tag">C</span><span class="tag">C++</span><span class="tag">SQL</span><span class="tag">MATLAB</span><span class="tag">HTML</span><span class="tag">CSS</span></div></div>
+      <div class="skill-grp"><div class="sg-title">Fabrication & Manufacturing</div><div class="tags"><span class="tag">CO₂ Laser Cutting</span><span class="tag">CNC Turning</span><span class="tag">3D Printing</span><span class="tag">Composite Layup</span><span class="tag">Fixture Design</span></div></div>
+      <div class="skill-grp"><div class="sg-title">Languages</div><div class="tags"><span class="tag">English</span><span class="tag">Hindi</span></div></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- EXPERIENCE -->
+<div class="section" id="exp">
+  <div class="sec-label">Work.log()</div>
+  <div class="sec-title">My Experience</div>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-hdr"><div class="exp-role">Associate Captain & Chassis Lead</div><div class="exp-date">Feb 2025 – May 2026</div></div>
+      <div class="exp-co">Team GS Motorsports, Indore</div>
+      <ul class="exp-ul">
+        <li>Headed chassis subsystem for Formula Bharat combustion vehicle, managing design, analysis, manufacturing, and validation phases.</li>
+        <li>Designed a structurally safe roll cage using AISI 4130 steel ensuring driver safety, stiffness, and rulebook compliance.</li>
+        <li>Led CAD modelling, packaging studies, and structural optimisation for performance and weight reduction.</li>
+        <li>Coordinated with aerodynamics, suspension, powertrain, and electrical teams for seamless vehicle integration.</li>
+        <li>Served as Associate Captain for a brief period, contributing to team coordination and project execution, and later worked as chassis lead team</li>
+      </ul>
+    </div>
+    <div class="exp-item">
+      <div class="exp-hdr"><div class="exp-role">Technical & Documentation Support</div><div class="exp-date">Feb 2025 – Jul 2025</div></div>
+      <div class="exp-co">SM Enterprises, Bhopal</div>
+      <ul class="exp-ul">
+        <li>Prepared AutoCAD technical drawings and electrical point wiring layouts.</li>
+        <li>Developed detailed wiring plans ensuring clarity for installation and execution.</li>
+        <li>Prepared billing documents, quotations, and project cost estimates.</li>
+        <li>Assisted in technical documentation and project coordination activities.</li>
+      </ul>
+    </div>
+    <div class="exp-item">
+      <div class="exp-hdr"><div class="exp-role">Business Website Development</div><div class="exp-date">Feb 2024 – Feb 2025</div></div>
+      <div class="exp-co">Maa Garima Enterprises, Bhopal</div>
+      <ul class="exp-ul">
+        <li>Designed and developed the official business website improving digital visibility.</li>
+        <li>Created website structure, layout, and UI for improved business presence.</li>
+        <li>Managed content organisation, product/service presentation, and deployment.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- PROJECTS -->
+<div class="section" id="proj">
+  <div class="sec-label">Projects.render()</div>
+  <div class="sec-title">My Projects</div>
+  <div class="proj-grid">
+
+    <!-- Project 1 -->
+    <div class="proj-card">
+      <div class="feat-badge">FEATURED</div>
+      <div class="proj-img-slot">
+        <div class="slot-dashes"></div>
+        <div class="slot-icon">🏎</div>
+        <div class="slot-text">Photo coming soon</div>
+        <button class="add-btn">+ Add Photo</button>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Mechanical Engineering</div>
+        <div class="proj-name">Formula Student Vehicle (FSAE Car)</div>
+        <p class="proj-desc">Designed and structurally analysed the combustion vehicle chassis. Fabricated carbon fibre body panels using composite layup and vacuum processing. Managed vehicle packaging, driver ergonomics, cooling integration, and competition readiness.</p>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="proj-card">
+      <div class="proj-img-slot">
+        <div class="slot-dashes"></div>
+        <div class="slot-icon">🤖</div>
+        <div class="slot-text">Photo coming soon</div>
+        <button class="add-btn">+ Add Photo</button>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Robotics & Automation</div>
+        <div class="proj-name">Autonomous Delivery Robot</div>
+        <p class="proj-desc">Designed and developed an autonomous robot for delivery applications. Implemented navigation and obstacle detection, integrated sensors, control systems, and mechanical structure for real-world smart mobility.</p>
+      </div>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="proj-card">
+      <div class="proj-img-slot">
+        <div class="slot-dashes"></div>
+        <div class="slot-icon">💻</div>
+        <div class="slot-text">Photo coming soon</div>
+        <button class="add-btn">+ Add Photo</button>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tag">Web Development</div>
+        <div class="proj-name">Maa Garima Enterprises Website</div>
+        <p class="proj-desc">Designed and deployed a complete business website improving digital visibility. Built full UI layout, content structure, and product/service presentation for a Bhopal-based enterprise.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- GALLERY -->
+<div class="section" id="gallery">
+  <div class="sec-label">Gallery.load()</div>
+  <div class="sec-title">Gallery</div>
+  <div class="gallery-grid">
+
+    <!-- Row 1: Photos -->
+    <div class="gallery-slot g-photo">
+      <div class="g-type">Photo</div>
+      <div class="g-icon">🖼</div>
+      <div class="g-label">Add photo</div>
+    </div>
+    <div class="gallery-slot g-photo">
+      <div class="g-type">Photo</div>
+      <div class="g-icon">🖼</div>
+      <div class="g-label">Add photo</div>
+    </div>
+    <div class="gallery-slot g-photo">
+      <div class="g-type">Photo</div>
+      <div class="g-icon">🖼</div>
+      <div class="g-label">Add photo</div>
+    </div>
+
+    <!-- Row 2: Mixed -->
+    <div class="gallery-slot g-video">
+      <div class="g-type">Video</div>
+      <div class="play-ring">▶</div>
+      <div class="g-label">Add video</div>
+    </div>
+    <div class="gallery-slot g-photo">
+      <div class="g-type">Photo</div>
+      <div class="g-icon">🖼</div>
+      <div class="g-label">Add photo</div>
+    </div>
+    <div class="gallery-slot g-video">
+      <div class="g-type">Video</div>
+      <div class="play-ring">▶</div>
+      <div class="g-label">Add video</div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="gallery-slot g-photo">
+      <div class="g-type">Photo</div>
+      <div class="g-icon">🖼</div>
+      <div class="g-label">Add photo</div>
+    </div>
+    <div class="gallery-slot g-video">
+      <div class="g-type">Video</div>
+      <div class="play-ring">▶</div>
+      <div class="g-label">Add video</div>
+    </div>
+    <div class="gallery-slot g-photo">
+      <div class="g-type">Photo</div>
+      <div class="g-icon">🖼</div>
+      <div class="g-label">Add photo</div>
+    </div>
+
+  </div>
+
+<hr class="divider" />
+
+<!-- EDUCATION -->
+<div class="section" id="edu">
+  <div class="sec-label">Education.load()</div>
+  <div class="sec-title">Education</div>
+  <div class="edu-list">
+    <div class="edu-item"><div class="edu-dot" style="background:var(--accent)"></div><div><div class="edu-inst">SGSITS, Indore</div><div class="edu-deg">B.E. Mechanical Engineering</div><div class="edu-yr">Sep 2025 – Aug 2028 &nbsp;|&nbsp; Currently in 3rd Year</div></div></div>
+    <div class="edu-item"><div class="edu-dot" style="background:var(--accent2)"></div><div><div class="edu-inst">Indian Institute of Technology Mandi</div><div class="edu-deg">Certification — Artificial Intelligence</div><div class="edu-yr">Sep 2024 – Feb 2026 &nbsp;|&nbsp; CGPA: 6.89</div></div></div>
+    <div class="edu-item"><div class="edu-dot" style="background:var(--accent3)"></div><div><div class="edu-inst">Red Rose School, Bhopal</div><div class="edu-deg">12th Standard</div><div class="edu-yr">Passed 2023 &nbsp;|&nbsp; 69.8%</div></div></div>
+    <div class="edu-item"><div class="edu-dot" style="background:var(--green)"></div><div><div class="edu-inst">St MontFort School, Bhopal</div><div class="edu-deg">10th Standard</div><div class="edu-yr">Passed 2021 &nbsp;|&nbsp; 78.8%</div></div></div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- AWARDS -->
+<div class="section">
+  <div class="sec-label">Awards.list()</div>
+  <div class="sec-title">Achievements & Awards</div>
+  <div class="awards-grid">
+    <div class="award-card"><div class="aw-icon">🏆</div><div class="aw-name">Best Innovator – Ideathon 2.0</div></div>
+    <div class="award-card"><div class="aw-icon">⚖️</div><div class="aw-name">Jury's Award – Flora Fuels</div></div>
+    <div class="award-card"><div class="aw-icon">🥇</div><div class="aw-name">Gold Medal – International Mathematics Olympiad (IMO)</div></div>
+    <div class="award-card"><div class="aw-icon">🥈</div><div class="aw-name">Silver Medal – U-17 Basketball Team</div></div>
+    <div class="award-card"><div class="aw-icon">🧘</div><div class="aw-name">Best Yoga Student Trophy (3 Consecutive Years)</div></div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- CONTACT -->
+<div class="section" id="contact" style="text-align:center;">
+  <div class="sec-label">Contact.init()</div>
+  <div class="sec-title" style="margin-bottom:.4rem;">Get in Touch</div>
+  <p style="color:var(--muted);font-family:var(--mono);font-size:.78rem;margin-bottom:1.8rem;">Open to opportunities, collaborations, and conversations.</p>
+  <div style="display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap;">
+    <a href="mailto:boranayashneel23@gmail.com" class="pill" style="border-color:var(--accent);color:var(--accent);padding:.6rem 1.5rem;">Boranayashneel23@gmail.com</a>
+    <a href="tel:+917489212158" class="pill" style="padding:.6rem 1.5rem;">+91 7489212158</a>
+  </div>
+  <p style="color:var(--muted);font-family:var(--mono);font-size:.68rem;margin-top:1.2rem;">Indore, Madhya Pradesh, India 452003</p>
+</div>
+
+<footer>YASHNEEL BORANA &nbsp;©&nbsp; 2025</footer>
+
+</body>
+</html>
